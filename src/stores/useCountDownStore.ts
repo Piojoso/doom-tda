@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
+import { computed } from 'vue'
 
 export const useCountDownStore = defineStore('countdown', () => {
   const launchDate = new Date(Date.UTC(2025, 4, 15, 0, 0, 0))
-
-  const localDate = new Date()
 
   const getDifference = () => {
     const diffMs = launchDate.getTime() - new Date().getTime()
@@ -22,7 +21,9 @@ export const useCountDownStore = defineStore('countdown', () => {
   return {
     // props
     launchDate,
-    localDate,
+
+    // getters
+    isLaunched: computed(() => new Date().getTime() >= launchDate.getTime()),
 
     // actions
     getDifference,
